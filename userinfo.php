@@ -18,7 +18,11 @@
     <div>
 
         <?php
-            $_SESSION['daily']=array(array("a","2020/08/01"),array("b","2020/08/02"));
+            include "user.php";
+            $_POST['id'] = 2;
+            $userA = new user();
+            echo $userA->get_user_info()[0];
+            $userA->get_log();
             $daily = $_SESSION['daily'];
             foreach($daily as $i){
                 echo "<div>".$i."</div>";
