@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 /* ********* 用户类 **********
 * 初始化一个用户类提供了一个对已录入用户进行操作的类，包含：
@@ -16,9 +17,8 @@ class user
     function __construct()
     {
         $id = $this->get_id();
-        $user_id = $id;
+        $this->user_id = $id;
         $timestamp = time();
-        session_start();
         date_default_timezone_set('PRC');
         $conn = new mysqli("localhost", "ifocus", "ifocus", "ifocus");
         // 检测连接
@@ -36,13 +36,12 @@ class user
             $conn->query($sql);
             $sql = "SELECT * FROM user
             WHERE id=\"{$id}\"";
-            
+
             $result = $conn->query($sql);
-            
         }
         $conn->close();
 
-        $this->result = get_result($result);
+        $this->result = get_result($result)[0];
         $this->login($this->result);
     }
     function __destruct()
@@ -52,7 +51,7 @@ class user
     function get_id()
     {
         // 暂时用时间戳代替
-        return $_POST['id'] ?? time();
+        return $_POST['id'] ;//?? time();
     }
     // 记录/读取日志，日志统一存放在../log/中，名称格式为log-user_id.txt，内容为"开始时间 结束时间\n"(unix时间戳)
     // 读取得到的日志存放在$_SESSION['daily']中
@@ -66,12 +65,14 @@ class user
     function get_log()
     {
         $file = file("../log/" . $this->user_id . ".txt");
-        $_SESSION['daily'] = $file ?? "";
+        //$_SESSION['daily'] = $file ?? "AAA";
+        echo  "AAA";
     }
     // 返回用户信息
     function get_user_info()
     {
-        return $this->result;
+        print_r($this->result);
+        $_SESSION['info'] = $this->result;
     }
 
     function control()
@@ -81,33 +82,33 @@ class user
             case "edt":
                 $this->edt();
                 break;
+            case "info":
+                $this->get_user_info();
+                break;
+            case "log":
+                $this->get_log();
             default:
                 break;
         }
     }
     // 登陆函数，更新以下三个参数，$_SESSION['img'](头像)，$_SESSION['slogan'](签名) ，$_SESSION['nickname'] = $row['name'](昵称);
-    function login($result)
+    function login($row)
     {
-        if ($result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-            $handle = fopen("../img/" . $this->user_id . ".jpg", "w");
-            fwrite($handle, $row['img']);
-            fclose($handle);
-            $_SESSION['img'] = "img/" . $this->user_id . ".jpg";
-            $_SESSION['slogan'] = $row['slogan'];
-            $_SESSION['nickname'] = $row['name'];
-        }
+        $handle = fopen("../img/" . $this->user_id . ".jpg", "w");
+        fwrite($handle, $row['img']);
+        fclose($handle);
+        $_SESSION['img'] = "img/" . $this->user_id . ".jpg";
+        $_SESSION['slogan'] = $row['slogan'];
+        $_SESSION['nickname'] = $row['nickname'];
     }
     // 修改函数，接受POST值name,slogan，以及文件pic，分别对应昵称，签名，头像
     function edt()
     {
 
-        $username = $_POST["name"];
+        $username = $_POST["nickname"];
         $slogan = $_POST['slogan'];
         $img = getImg($_FILES["pic"]);
-        $id = $this->id;
-
-        session_start();
+        $id = $this->user_id;
         date_default_timezone_set('PRC');
         $conn = new mysqli("localhost", "ifocus", "ifocus", "ifocus");
         // 检测连接
@@ -122,9 +123,9 @@ class user
         if ($conn->query($sql) === FALSE) {
             $_SESSION['error_msg'] =  $conn->error;
         }
-
         $conn->close();
-        $this->login($this->result);
+        $_SESSION['info'] = $this->result;
+        Header("Location:userinfo.php");
     }
 
 
@@ -150,7 +151,6 @@ class user
     }
     function start_live($room_number, $state, $livestream, $key)
     {
-        session_start();
 
         date_default_timezone_set('PRC');
         $conn = new mysqli("localhost", "ifocus", "ifocus", "ifocus");
@@ -166,8 +166,6 @@ class user
     }
     function end_live()
     {
-        session_start();
-
         date_default_timezone_set('PRC');
         $conn = new mysqli("localhost", "ifocus", "ifocus", "ifocus");
         // 检测连接
@@ -205,12 +203,18 @@ function getImg($imgfile)
     return $imgdata;
 }
 // 将sql的返回值转化为数组
-function get_result($result){
+function get_result($result)
+{
     $res = array();
     $count = 0;
-    while($row = $result->fetch_assoc()) {
-        $res[$count] = json_encode($row);
+    while ($row = $result->fetch_assoc()) {
+        $res[$count] = ($row);
         $count = $count + 1;
     }
     return $res;
 }
+
+echo "A\n";
+$user = new user();
+$user->control();
+echo "Z\n";
