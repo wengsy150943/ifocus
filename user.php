@@ -5,7 +5,7 @@ session_start();
 * 初始化一个用户类提供了一个对已录入用户进行操作的类，包含：
 * 查询、修改用户的基础信息，包括头像、昵称、签名、日志；
 * 维护该用户的直播状态，包括加入直播列表，检测学习状态，移出直播列表；
-* 实例化用户类需要其唯一id，传入信息采用POST方法，传出信息采用SESSION，具体调用方法尚未完善；
+* 实例化用户类需要其唯一id，传入信息采用POST方法，传出信息采用函数回调，具体利用control方法进行控制；
 
 */
 class user
@@ -50,8 +50,7 @@ class user
     // 与微信服务器交互，获取openid
     function get_id()
     {
-        // 暂时用时间戳代替
-        return $_POST['id'] ;//?? time();
+        return $_POST['id'] ;
     }
     // 记录/读取日志，日志统一存放在../log/中，名称格式为log-user_id.txt，内容为"开始时间 结束时间\n"(unix时间戳)
     // 读取得到的日志存放在$_SESSION['daily']中
@@ -64,29 +63,32 @@ class user
     }
     function get_log()
     {
-        $file = file("../log/" . $this->user_id . ".txt");
-        //$_SESSION['daily'] = $file ?? "AAA";
-        echo  "AAA";
+        $file = file("./log/log-" . $this->user_id . ".txt");
+        return "NO LOG";//$file ?? "NO LOG";
+        
     }
     // 返回用户信息
     function get_user_info()
     {
-        print_r($this->result);
-        $_SESSION['info'] = $this->result;
+        if(isset($_POST['res'])) return $_SESSION[$_POST['res']];
+        else return json_encode($this->result);
     }
 
     function control()
     {
         $arg = $_GET['argc'] ?? $_POST['argc'];
+        echo $arg."<br>";
         switch ($arg) {
             case "edt":
                 $this->edt();
                 break;
             case "info":
-                $this->get_user_info();
+                echo $this->get_user_info();
                 break;
             case "log":
-                $this->get_log();
+                print_r(json_encode($this->get_log()));
+            case "start_live":
+                echo $this->start_live();
             default:
                 break;
         }
@@ -94,10 +96,10 @@ class user
     // 登陆函数，更新以下三个参数，$_SESSION['img'](头像)，$_SESSION['slogan'](签名) ，$_SESSION['nickname'] = $row['name'](昵称);
     function login($row)
     {
-        $handle = fopen("../img/" . $this->user_id . ".jpg", "w");
+        $handle = fopen("./img/" . $this->user_id . ".jpg", "w");
         fwrite($handle, $row['img']);
         fclose($handle);
-        $_SESSION['img'] = "img/" . $this->user_id . ".jpg";
+        $_SESSION['img'] = "./img/" . $this->user_id . ".jpg";
         $_SESSION['slogan'] = $row['slogan'];
         $_SESSION['nickname'] = $row['nickname'];
     }
@@ -107,7 +109,9 @@ class user
 
         $username = $_POST["nickname"];
         $slogan = $_POST['slogan'];
-        $img = getImg($_FILES["pic"]);
+        $img = getImg($_FILES["img"]);
+        echo $username;
+        print_r($_FILES['img']);
         $id = $this->user_id;
         date_default_timezone_set('PRC');
         $conn = new mysqli("localhost", "ifocus", "ifocus", "ifocus");
@@ -130,28 +134,18 @@ class user
 
 
     // 直播的生命周期
-    function live($state, $room_number, $livestream, $key, $set_time)
+    function start_live()
     {
-        $this->start_live($room_number, $state, $livestream, $key);
-        $success_complete = TRUE;
-        if ($state == 2) {
-            /*
-            while is_living
-                wait for a while
-                result = mechine_checking_function 
-                if result is OK
-                    continue
-                else
-                    $success_complete = FALSE
-                    break
-            */
+        $room_id = $_POST['room_id'];
+        $state = $_POST['state'];
+        // 如果单纯不是锁屏，开启直播推流
+        if($state != 0){
+            $livestream = $this->user_id;
+            $key = $room_id;
         }
-        $_SESSION['result'] = $success_complete;
-        $this->end_live();
-    }
-    function start_live($room_number, $state, $livestream, $key)
-    {
-
+        echo $room_id;
+        echo $this->user_id;
+        $id = $this->user_id;
         date_default_timezone_set('PRC');
         $conn = new mysqli("localhost", "ifocus", "ifocus", "ifocus");
         // 检测连接
@@ -159,10 +153,12 @@ class user
             die("连接失败: " . $conn->connect_error);
             return;
         }
-        $sql = "INSERT INTO livelist(id,room_number,live_state,livestream,live_key,start_time)
-            VALUES (\"{$this->id}\",\"{$room_number}\",\"{$state}\" ,\"{$livestream}\",\"{$key}\",\"{time()}\" );";
+        $time = date('Y-m-d H:i:s',time());
+        $sql = "INSERT INTO livelist(id,room_id,live_state,livestream,live_key,start_time)
+            VALUES (\"{$id}\",\"{$room_id}\",\"{$state}\" ,\"{$livestream}\",\"{$key}\",\"{$time}\" );";
         $result = $conn->query($sql);
         $conn->close();
+        Header("Location:studylist.php");
     }
     function end_live()
     {
@@ -193,6 +189,7 @@ function getImg($imgfile)
     $name = $imgfile['name'];  //取得图片名称
     $size = $imgfile['size'];  //取得图片长度
     $tmpfile = $imgfile['tmp_name'];  //图片上传上来到临时文件的路径
+    print_r($imgfile);
     if ($tmpfile and is_uploaded_file($tmpfile))  //判断上传文件是否为空，文件是不是上传的文件
     {
         //读取图片流
@@ -213,8 +210,3 @@ function get_result($result)
     }
     return $res;
 }
-
-echo "A\n";
-$user = new user();
-$user->control();
-echo "Z\n";
