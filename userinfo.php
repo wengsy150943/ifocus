@@ -49,14 +49,14 @@ function request($url, $post_data)
 
     <div>
         <?php
-        /*
+        
         $data = array('argc'=>'info','id'=>'2','res'=>'nickname','target'=>'user');
         $nickname = request("http://localhost/ifocus-back/control.php",$data);
         $data = array('argc'=>'info','id'=>2,'res'=>'slogan','target'=>'user');
         $slogan = request("http://localhost/ifocus-back/control.php",$data);
         $data = array('argc'=>'info','id'=>2,'res'=>'img','target'=>'user');
         $img = request("http://localhost/ifocus-back/control.php",$data);
-        echo $nickname;*/
+        echo $nickname;
         ?>
         <h2>请求用户信息</h2>
         <p>
@@ -80,10 +80,9 @@ function request($url, $post_data)
     <div>
         <h2>返回用户日志（json）</h2>
         <?php
-        $data = array('argc'=>'log','id'=>'2','target'=>'user');
-        print_r ($data);
-        $daily = request("http://localhost/ifocus-back/control.php",$data);
-        echo $daily;
+        $data = array('argc'=>'log','id'=>2,'res'=>'img','target'=>'user');
+        $log = request("http://localhost/ifocus-back/control.php",$data);
+        echo $log;
         ?>
     </div>
 </body>

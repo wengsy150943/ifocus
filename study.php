@@ -28,7 +28,7 @@ class self_study_room
             die("连接失败: " . $conn->connect_error);
             return;
         }
-        $sql = "SELECT id FROM livelist
+        $sql = "SELECT * FROM livelist
             WHERE room_id=\"{$this->room_id}\"";
         $user_list = $conn->query($sql);
         $conn->close();
@@ -37,7 +37,6 @@ class self_study_room
     function get_user_info()
     {
         $all_info = array();
-        
         while ($row = $this->user_list->fetch_assoc()) {
             $_POST['id'] = $row['id'];
             $temp = new user();
@@ -45,13 +44,24 @@ class self_study_room
         }
         return json_encode($all_info);
     }
+    function get_live(){
+        while ($row = $this->user_list->fetch_assoc()) {
+            if($row['id'] == $_POST['id']){
+                $ans = json_encode($row);
+            }
+        }
+        return $ans;
+    }
     function control()
     {
         $arg = $_REQUEST['argc'];
         switch ($arg) {
-            case "info":
-                print_r($this->get_user_info());
+            case "userinfo":
+                echo ($this->get_user_info());
                 break;
+            case "live":
+                echo $this->get_live();
+            break;
             default:
                 break;
         }
