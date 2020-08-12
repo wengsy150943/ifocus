@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+
+<head>
+
+    <meta charset="UTF-8">
+
+</head>
+
+<body>
+    <h1>ifocus的后端演示代码</h1>
+    本页面将简单介绍ifocus的后端运行逻辑和对应端口（暂定），更具体的运行实例请戳最下方的链接。
+
+
+    <h2>基础逻辑和功能</h2>
+    鉴于小程序是通过微信号登陆的，在演示代码中默认已经登陆，openid为2
+    暂定依据小程序里每个用户的唯一id作为数据库的主键，采用post方法向后端传递信息，返回json。为了简单起见，目前日志以明文保存在./log下。
+    <br>
+    暂时提供以下数据的查询，可以根据需求追加：
+    <br>
+    用户基础信息：头像/昵称/签名/日志
+    <br>
+    用户直播信息：房间号/推流url/openid
+    <br>
+    房间信息：房间号/人数
+    #关于房间：由于在后端实现中并没有独立的房间，所以实际上是没有人数限制的。
+    <br>
+    排行榜信息：当日排名/总排名（openid）
+    <br>
+    提供用户基础信息的修改
+    <br>
+    提供直播的登陆/退出
+    <h2>接口</h2>
+    暂定采用post方法，演示代码中封装的函数如下(其实并不重要)
+    <p>
+        function request($url, $post_data)
+        <br>
+        {
+        $postdata = http_build_query($post_data);
+        $options = array(
+
+        'http' => array(
+        'method' => 'POST',
+        'header' => 'Content-type:application/x-www-form-urlencoded',
+        'content' => $postdata,
+        'timeout' => 15 * 60 // 超时时间（单位:s）
+        )
+
+        );
+
+        $context = stream_context_create($options);
+
+        $result = file_get_contents($url, false, $context);
+        return $result;
+        }
+    </p>
+        函数原型为function request($url, $post_data)，其中$url为请求的地址，演示代码中统一为http://localhost/ifocus-back/control.php，$post_data为具体的请求内容，是一个post的键值对数组。
+        <br>
+        <br>
+
+        <b>具体的键值含义如下</b>
+        <br>
+        <br>
+
+        target：涉及的内容，可选参数包括user/room/room_list/today_rank/total_rank，所有具体请求都需要含有这一参数。
+        <h4>target=>user</h4>
+        和用户相关的内容
+        <br>
+        id：openid，这是一个必须的参数
+        <br>
+        argc:指令，可选参数包括edt/info/log/start_live/end_live。   edt为修改用户信息（事实上注册是一样的），具体信息的名称见实例；info为返回用户信息，可以使用res返回具体参数；log为返回用户日志；start_live为开始直播；end_live为结束直播
+        <h4>target=>room</h4>
+        房间内的信息
+        <br>
+        room_id：房间号
+        <br>
+        argc:指令，可选参数包括userinfo/live。  userinfo返回该房间的所有用户的基本信息；live返回某个成员的直播信息，需要其id作为参数
+        <h4>target=>room_list</h4>
+        返回房间列表，包含房间号和人数
+        <h4>target=>today_rank/total_rank</h4>
+        分别返回当日和总自习时间排行榜
+
+        <h4>实例</h4>
+        以下代码获取id为2的用户的昵称
+        <br>
+        $data = array('argc'=>'info','id'=>'2','res'=>'nickname','target'=>'user');
+        <br>
+        $nickname = request("http://localhost/ifocus-back/control.php",$data);
+        
+
+
+    <h2>数据库相关</h2>
+    如果无修改数据库的需求，可以略过此节
+    <br>
+    后端数据库名ifocus，用户/密码同名，如需修改，批量修改$conn = new mysqli("localhost", "ifocus", "ifocus", "ifocus");语句即可。
+    <br>
+    后端采用三个表储存对应信息：
+    <br>
+    <h4>user：储存用户的基础信息</h4>
+    <br>
+    包含四个字段：
+    <br>
+    img：储存头像
+    <br>
+    nickname：储存昵称
+    <br>
+    #注意：由于微信小程序提供唯一id和验证，不设置另外的唯一id和密码
+    <br>
+    slogan：储存签名
+    <br>
+    id：储存微信小程序提供的唯一用户id，请保证其长度大于128
+    <br>
+    <br>
+    <h4>livelist：储存用户的直播信息</h4>
+    <br>
+    包含六个字段：
+    <br>
+    live_state：直播的状态：0/1/2，对应锁屏/人工智能监督/互相监督
+    <br>
+    livestream/live_key：直播推拉流/串流密钥，这个部分不确定小程序具体实现时需要如何分配，可以后期再进行调整
+    <br>
+    start_time：开始时间
+    <br>
+    id：储存微信小程序提供的唯一用户id，请保证其长度大于128
+    <br>
+    room_id：房间号
+    <br>
+    <br>
+    <h4>rank_list：排行榜</h4>
+    <br>
+    id：储存微信小程序提供的唯一用户id，请保证其长度大于128
+    <br>
+    last_active_date：最后活跃日期
+    <br>
+    time：今日自习时间
+    <br>
+    all_time：总自习时间
+    <div>
+
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <h2>具体实例演示</h2>
+    <a href="./studylist.php">传送到自习列表</a>
+    <br>
+    <a href="./userinfo.php">传送到用户信息</a>
+    <br>
+    <a href="./rank.php">传送到排行榜</a>
+</body>
