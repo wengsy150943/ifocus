@@ -77,7 +77,7 @@ class user
     function get_log()
     {
         $file = file("./log/log-" . $this->user_id . ".txt");
-        return json_encode($file) ?? "NO LOG";
+        return json_encode($file ?? "NO LOG");
     }
     // 返回用户信息
     function get_user_info()
@@ -172,12 +172,34 @@ class user
             die("连接失败: " . $conn->connect_error);
             return;
         }
+        // 更新日志 格式为 "开始时间 结束时间"（yyyy-mm-dd hh:ii:ss）
         $sql = "SELECT * FROM livelist
             WHERE id = \"{$this->user_id}\"";
         $result = $conn->query($sql);
         $time = $this->get_result($result)[0]['start_time'];
         $this->write_log($time." ".date('Y-m-d H:i:s', time())."\n");
         
+        $time = time() - strtotime($time);
+
+        $sql = "SELECT all_time FROM rank_list WHERE id = \"{$this->user_id}\"";
+        $result = $conn->query($sql)->fetch_assoc()[0]['all_time'];
+        echo $conn->error;
+
+        $sql = "UPDATE rank_list SET all_time = ($result+$time) WHERE id = \"{$this->user_id}\"";
+        $conn->query($sql);
+        echo $conn->error;
+
+        $sql = "SELECT time,last_active_date FROM rank_list WHERE id = \"{$this->user_id}\"";
+        $result = $conn->query($sql)->fetch_assoc()[0];
+        echo $conn->error;
+        $date = date('Y-m-d',time());
+        if($result['last_active_date'] == $date) $result = $result['today_time'] + $time;
+        else $result = $time;
+        $sql = "UPDATE rank_list SET time = $result,last_active_date = \"{$date}\" WHERE id = \"{$this->user_id}\"";
+        $conn->query($sql);
+        echo $conn->error;
+
+        // 从直播名单中删除
         $sql = "DELETE FROM livelist
             WHERE id = \"{$this->user_id}\"";
         $result = $conn->query($sql);

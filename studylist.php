@@ -31,7 +31,9 @@ function request($url, $post_data)
     <div>
         <h2>自习室列表</h2>
         <?php
-            
+            $data = array('target'=>'room_list');
+            $list = request("http://localhost/ifocus-back/control.php",$data);
+            echo $list;
         ?>
     </div>
     <h2>进入自习室</h2>
