@@ -19,6 +19,7 @@ class self_study_room
     function __destruct()
     {
     }
+    // 获取用户列表，返回用户的livelist信息（直播状态/流/id
     function get_user_list()
     {
         date_default_timezone_set('PRC');
@@ -34,6 +35,7 @@ class self_study_room
         $conn->close();
         return $user_list;
     }
+    // 获取列表里用户的基本信息
     function get_user_info()
     {
         $all_info = array();
@@ -44,14 +46,21 @@ class self_study_room
         }
         return json_encode($all_info);
     }
-    function get_live(){
+    // 获取某个用户的直播信息
+    function get_live()
+    {
         while ($row = $this->user_list->fetch_assoc()) {
-            if($row['id'] == $_POST['id']){
+            if ($row['id'] == $_POST['id']) {
                 $ans = json_encode($row);
             }
         }
         return $ans;
     }
+    // 返回是否存在房间
+    function check_room(){
+        return $this->user_list->num_rows == 0?'FALSE':'TRUE';
+    }
+    // 分流入口
     function control()
     {
         $arg = $_REQUEST['argc'];
@@ -61,7 +70,9 @@ class self_study_room
                 break;
             case "live":
                 echo $this->get_live();
-            break;
+                break;
+            case "check":
+                echo $this->check_room();
             default:
                 break;
         }
@@ -74,8 +85,9 @@ class self_study_room
  * 
  * 
  */
-
- function get_room_list(){
+// 返回房间列表
+function get_room_list()
+{
     date_default_timezone_set('PRC');
     $conn = new mysqli("localhost", "ifocus", "ifocus", "ifocus");
     // 检测连接
@@ -86,16 +98,17 @@ class self_study_room
     $sql = "SELECT DISTINCT room_id FROM livelist";
     $room_list = $conn->query($sql);
     $ans = array();
-    while($row = $room_list->fetch_assoc()){
+    while ($row = $room_list->fetch_assoc()) {
         $id = $row['room_id'];
         $ans[$id] = $conn->query("SELECT COUNT(id) AS num FROM livelist WHERE room_id = \"{$id}\"")->fetch_assoc()['num'];
         echo $conn->error;
     }
     $conn->close();
     return json_encode($ans);
- }
-
- function get_today_rank(){
+}
+// 返回今日排行榜
+function get_today_rank()
+{
     date_default_timezone_set('PRC');
     $conn = new mysqli("localhost", "ifocus", "ifocus", "ifocus");
     // 检测连接
@@ -103,18 +116,19 @@ class self_study_room
         die("连接失败: " . $conn->connect_error);
         return;
     }
-    $time = date("Y-m-d",time());
+    $time = date("Y-m-d", time());
     $sql = "SELECT id,time FROM rank_list WHERE last_active_date = \"{$time}\" ORDER BY time+0 DESC";
     $rank = $conn->query($sql);
     $ans = array();
-    while($row = $rank->fetch_assoc()){
+    while ($row = $rank->fetch_assoc()) {
         $ans[] = json_encode($row);
     }
     $conn->close();
     return json_encode($ans);
- }
-
- function get_total_rank(){
+}
+// 返回总排行榜
+function get_total_rank()
+{
     date_default_timezone_set('PRC');
     $conn = new mysqli("localhost", "ifocus", "ifocus", "ifocus");
     // 检测连接
@@ -125,9 +139,9 @@ class self_study_room
     $sql = "SELECT id,all_time FROM rank_list ORDER BY all_time+0 DESC";
     $rank = $conn->query($sql);
     $ans = array();
-    while($row = $rank->fetch_assoc()){
+    while ($row = $rank->fetch_assoc()) {
         $ans[] = json_encode($row);
     }
     $conn->close();
     return json_encode($ans);
- }
+}

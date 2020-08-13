@@ -1,5 +1,7 @@
 <?php
 session_start();
+// 目前测试的网址
+$url = "http://localhost/ifocus-back/";
 // 封装请求函数
 function request($url, $post_data)
 {
@@ -29,18 +31,22 @@ function request($url, $post_data)
 <body>
     
 <h2>获取当日排行</h2>
+'target'=>'today_rank'
+<br>
 <div>
     <?php
         $data = array('target'=>'today_rank');
-        $rank = request("http://localhost/ifocus-back/control.php",$data);
+        $rank = request($url."control.php",$data);
         echo $rank;
     ?>
 </div>
 <h2>获取总排行</h2>
+'target'=>'total_rank'
+<br>
 <div>
     <?php
         $data = array('target'=>'total_rank');
-        $rank = request("http://localhost/ifocus-back/control.php",$data);
+        $rank = request($url."control.php",$data);
         echo $rank;
         echo "<br>";
         print_r(json_decode(json_decode($rank,true)[0],true));

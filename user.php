@@ -10,6 +10,8 @@ session_start();
 */
 class user
 {
+    // 目前测试的网址
+    private $url = "http://localhost/ifocus-back/";
     public $user_id;
     private $timestamp;
     private $result;
@@ -46,46 +48,7 @@ class user
     function __destruct()
     {
     }
-    // 与微信服务器交互，获取openid
-    function get_id()
-    {
-        return $_POST['id'];
-    }
-    // 将sql的返回值转化为数组
-    function get_result($result)
-    {
-        $res = array();
-        while ($row = $result->fetch_assoc()) {
-            if(isset($row['img'])){
-            $handle = fopen("./img/" . $this->user_id . ".jpg", "w");
-            fwrite($handle, $row['img']);
-            fclose($handle);
-            $row['img'] = "./img/" . $this->user_id . ".jpg";}
-            $res[] = $row;
-        }
-        return $res;
-    }
-    // 记录/读取日志，日志统一存放在../log/中，名称格式为log-user_id.txt，内容为"开始时间 结束时间\n"(unix时间戳)
-    // 读取得到的日志存放在$_SESSION['daily']中
-    function write_log($time)
-    {
-        $log = "./log/log-" . $this->user_id . ".txt";
-        $handle = fopen($log, "a");
-        fwrite($handle, $time);
-        fclose($handle);
-    }
-    function get_log()
-    {
-        $file = file("./log/log-" . $this->user_id . ".txt");
-        return json_encode($file ?? "NO LOG");
-    }
-    // 返回用户信息
-    function get_user_info()
-    {
-        if (isset($_POST['res'])) return $this->result[$_POST['res']];
-        else return json_encode($this->result);
-    }
-
+    // 分流入口
     function control()
     {
         $arg = $_REQUEST['argc'];
@@ -109,6 +72,46 @@ class user
                 break;
         }
     }
+    // 与微信服务器交互，获取openid
+    function get_id()
+    {
+        return $_POST['id'];
+    }
+    // 将sql的返回值转化为数组
+    function get_result($result)
+    {
+        $res = array();
+        while ($row = $result->fetch_assoc()) {
+            if(isset($row['img'])){
+            $handle = fopen("img/" . $this->user_id . ".jpg", "w");
+            fwrite($handle, $row['img']);
+            fclose($handle);
+            $row['img'] = $this->url."img/" . $this->user_id . ".jpg";}
+            $res[] = $row;
+        }
+        return $res;
+    }
+    // 记录/读取日志，日志统一存放在../log/中，名称格式为log-user_id.txt，内容为"开始时间 结束时间\n"(unix时间戳)
+    // 读取得到的日志存放在$_SESSION['daily']中
+    function write_log($time)
+    {
+        $log = $this->url."log/log-" . $this->user_id . ".txt";
+        $handle = fopen($log, "a");
+        fwrite($handle, $time);
+        fclose($handle);
+    }
+    function get_log()
+    {
+        $file = file($this->url."log/log-" . $this->user_id . ".txt");
+        return json_encode($file ?? "NO LOG");
+    }
+    // 返回用户信息
+    function get_user_info()
+    {
+        if (isset($_POST['res'])) return $this->result[$_POST['res']];
+        else return json_encode($this->result);
+    }
+    
     // 修改函数，接受POST值name,slogan，以及文件pic，分别对应昵称，签名，头像
     function edt()
     {
@@ -146,9 +149,8 @@ class user
             $livestream = $this->user_id;
             $key = $room_id;
         }
-        echo $room_id;
-        echo $this->user_id;
         $id = $this->user_id;
+        // 更新livelist状态
         date_default_timezone_set('PRC');
         $conn = new mysqli("localhost", "ifocus", "ifocus", "ifocus");
         // 检测连接
@@ -178,7 +180,7 @@ class user
         $result = $conn->query($sql);
         $time = $this->get_result($result)[0]['start_time'];
         $this->write_log($time." ".date('Y-m-d H:i:s', time())."\n");
-        
+        // 更新rank_list内容
         $time = time() - strtotime($time);
 
         $sql = "SELECT all_time FROM rank_list WHERE id = \"{$this->user_id}\"";

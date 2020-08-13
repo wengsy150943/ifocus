@@ -24,6 +24,8 @@
     房间信息：房间号/人数
     #关于房间：由于在后端实现中并没有独立的房间，所以实际上是没有人数限制的。
     <br>
+    查询房间号是否已存在
+    <br>
     排行榜信息：当日排名/总排名（openid）
     <br>
     提供用户基础信息的修改
@@ -53,7 +55,9 @@
         return $result;
         }
     </p>
-        函数原型为function request($url, $post_data)，其中$url为请求的地址，演示代码中统一为http://localhost/ifocus-back/control.php，$post_data为具体的请求内容，是一个post的键值对数组。
+        函数原型为function request($url, $post_data)，其中$url为请求的地址，演示代码中统一为http://localhost/ifocus-back/control.php，为了加强可读性，写为$url."control.php"的形式，其中$url为根目录。
+        <br>
+        $post_data为具体的请求内容，是一个post的键值对数组。
         <br>
         <br>
 
@@ -73,7 +77,7 @@
         <br>
         room_id：房间号
         <br>
-        argc:指令，可选参数包括userinfo/live。  userinfo返回该房间的所有用户的基本信息；live返回某个成员的直播信息，需要其id作为参数
+        argc:指令，可选参数包括userinfo/live。  userinfo返回该房间的所有用户的基本信息；live返回某个成员的直播信息，需要其id作为参数；check返回该房间号是否已经存在
         <h4>target=>room_list</h4>
         返回房间列表，包含房间号和人数
         <h4>target=>today_rank/total_rank</h4>
@@ -84,7 +88,7 @@
         <br>
         $data = array('argc'=>'info','id'=>'2','res'=>'nickname','target'=>'user');
         <br>
-        $nickname = request("http://localhost/ifocus-back/control.php",$data);
+        $nickname = request($url."control.php",$data);
         
 
 
