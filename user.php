@@ -31,7 +31,7 @@ class user
         $sql = "SELECT * FROM user
             WHERE id=\"{$id}\"";
         $result = $conn->query($sql);
-
+        // 如果查询不到用户 新建一个条目
         if ($result->num_rows == 0) {
             $sql = "INSERT INTO user (id)
         VALUES (\"{$id}\");";
@@ -61,13 +61,13 @@ class user
                 break;
             case "log":
                 echo $this->get_log();
-            break;
+                break;
             case "start_live":
                 echo $this->start_live();
-            break;
+                break;
             case "end_live":
                 echo $this->end_live();
-            break;
+                break;
             default:
                 break;
         }
@@ -82,28 +82,28 @@ class user
     {
         $res = array();
         while ($row = $result->fetch_assoc()) {
-            if(isset($row['img'])){
-            $handle = fopen("img/" . $this->user_id . ".jpg", "w");
-            fwrite($handle, $row['img']);
-            fclose($handle);
-            $row['img'] = $this->url."img/" . $this->user_id . ".jpg";}
+            if (isset($row['img'])) {
+                $handle = fopen("img/" . $this->user_id . ".jpg", "w");
+                fwrite($handle, $row['img']);
+                fclose($handle);
+                $row['img'] = $this->url . "img/" . $this->user_id . ".jpg";
+            }
             $res[] = $row;
         }
         return $res;
     }
     // 记录/读取日志，日志统一存放在../log/中，名称格式为log-user_id.txt，内容为"开始时间 结束时间\n"(unix时间戳)
-    // 读取得到的日志存放在$_SESSION['daily']中
     function write_log($time)
     {
-        $log = $this->url."log/log-" . $this->user_id . ".txt";
+        $log = $this->url . "log/log-" . $this->user_id . ".txt";
         $handle = fopen($log, "a");
         fwrite($handle, $time);
         fclose($handle);
     }
     function get_log()
     {
-        $file = file($this->url."log/log-" . $this->user_id . ".txt");
-        return json_encode($file ?? "NO LOG");
+        $file = file($this->url . "log/log-" . $this->user_id . ".txt");
+        return json_encode($file ?? "NO LOG"); // 如果没有日志 返回NO LOG
     }
     // 返回用户信息
     function get_user_info()
@@ -111,7 +111,7 @@ class user
         if (isset($_POST['res'])) return $this->result[$_POST['res']];
         else return json_encode($this->result);
     }
-    
+
     // 修改函数，接受POST值name,slogan，以及文件pic，分别对应昵称，签名，头像
     function edt()
     {
@@ -119,9 +119,9 @@ class user
         $username = $_POST["nickname"];
         $slogan = $_POST['slogan'];
         $img = getImg($_FILES["img"]);
-        echo $username;
-        print_r($_FILES['img']);
         $id = $this->user_id;
+
+        // 更新用户信息
         date_default_timezone_set('PRC');
         $conn = new mysqli("localhost", "ifocus", "ifocus", "ifocus");
         // 检测连接
@@ -129,7 +129,6 @@ class user
             die("连接失败: " . $conn->connect_error);
             return;
         }
-
         $sql = "UPDATE user SET nickname=\"{$username}\", 
                   img=\"{$img}\",slogan=\"{$slogan}\"
                 WHERE id=\"{$id}\"";
@@ -144,7 +143,7 @@ class user
     {
         $room_id = $_POST['room_id'];
         $state = $_POST['state'];
-        // 如果单纯不是锁屏，开启直播推流
+        // 如果不是单纯锁屏，开启直播推流
         if ($state != 0) {
             $livestream = $this->user_id;
             $key = $room_id;
@@ -161,12 +160,17 @@ class user
         $time = date('Y-m-d H:i:s', time());
         $sql = "INSERT INTO livelist(id,room_id,live_state,livestream,live_key,start_time)
             VALUES (\"{$id}\",\"{$room_id}\",\"{$state}\" ,\"{$livestream}\",\"{$key}\",\"{$time}\" );";
-        $result = $conn->query($sql);
+        $conn->query($sql);
         $conn->close();
-        Header("Location:studylist.php");
+        // 检查是否失败
+        // check_alive($livestream);
+        // 跳转回原页面
+        //Header("Location:studylist.php");
     }
     function end_live()
     {
+        // 更新直播状态
+        $_SESSION['alive'] = FALSE;
         date_default_timezone_set('PRC');
         $conn = new mysqli("localhost", "ifocus", "ifocus", "ifocus");
         // 检测连接
@@ -179,7 +183,7 @@ class user
             WHERE id = \"{$this->user_id}\"";
         $result = $conn->query($sql);
         $time = $this->get_result($result)[0]['start_time'];
-        $this->write_log($time." ".date('Y-m-d H:i:s', time())."\n");
+        $this->write_log($time . " " . date('Y-m-d H:i:s', time()) . "\n");
         // 更新rank_list内容
         $time = time() - strtotime($time);
 
@@ -194,8 +198,8 @@ class user
         $sql = "SELECT time,last_active_date FROM rank_list WHERE id = \"{$this->user_id}\"";
         $result = $conn->query($sql)->fetch_assoc()[0];
         echo $conn->error;
-        $date = date('Y-m-d',time());
-        if($result['last_active_date'] == $date) $result = $result['today_time'] + $time;
+        $date = date('Y-m-d', time());
+        if ($result['last_active_date'] == $date) $result = $result['today_time'] + $time;
         else $result = $time;
         $sql = "UPDATE rank_list SET time = $result,last_active_date = \"{$date}\" WHERE id = \"{$this->user_id}\"";
         $conn->query($sql);
@@ -231,4 +235,15 @@ function getImg($imgfile)
         fclose($file);
     }
     return $imgdata;
+}
+// 检查是否离开，需要调用算法
+function check_alive($livestream)
+{
+    $path = "srs/trunk/objs/nginx/html/" . $livestream;
+    $_SESSION['alive'] = TRUE;
+    // session 可能不可用 可参考https://www.jb51.net/article/160818.htm 进行调整
+    while ($_SESSION['alive'] == TRUE) {
+        $name = exec("ls " . $path . "/ -l | grep [*.]ts$ |tail -n 1|awk '{print $9}'");
+        $_SESSION['alive'] = exec("python check" . $name);
+    }
 }
