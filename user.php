@@ -11,7 +11,7 @@ session_start();
 class user
 {
     // 目前测试的网址
-    private $url = "http://localhost/ifocus-back/";
+    private $url = "http://192.168.0.102/ifocus-back/";
     public $user_id;
     private $timestamp;
     private $result;
@@ -103,7 +103,7 @@ class user
     function get_log()
     {
         $file = file($this->url . "log/log-" . $this->user_id . ".txt");
-        return json_encode($file ?? "NO LOG"); // 如果没有日志 返回NO LOG
+        return json_encode($file); // 如果没有日志 返回NO LOG
     }
     // 返回用户信息
     function get_user_info()

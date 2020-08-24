@@ -1,7 +1,7 @@
 <?php
 session_start();
 // 目前测试的网址
-$url = "http://localhost/ifocus-back/";
+$url = "http://192.168.0.102/ifocus-back/";
 // 封装请求函数
 function request($url, $post_data)
 {
