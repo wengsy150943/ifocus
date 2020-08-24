@@ -15,13 +15,13 @@ the back end of ifocus
 CREATE DATABASE ifocus;
 
 
-CREATE TABLE `ifocus` . `user` ( `id` CHAR(128) NOT NULL , `img` MEDIUMBLOB NULL , `nickname` VARCHAR(20) NULL , `slogan` VARCHAR(40) NULL, UNIQUE `id` ( `id` ) ) ENGINE = InnoDB;
+CREATE TABLE `ifocus`.`user` ( `img` MEDIUMBLOB NULL DEFAULT NULL , `nickname` VARCHAR(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL , `slogan` VARCHAR(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL , `id` VARCHAR(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL , UNIQUE `id` (`id`)) ENGINE = InnoDB;
 
 
-CREATE TABLE `ifocus` . `livelist` ( `id` VARCHAR(128) NOT NULL , `room_id` VARCHAR(30) NOT NULL , `live_state` INT(2) NOT NULL , `livestream` VARCHAR(30) NULL , `live_key` VARCHAR(10) NULL , `start_time` TIMESTAMP NULL , UNIQUE `id` ( `id` )) ENGINE = InnoDB;
+CREATE TABLE `ifocus`.`livelist` ( `id` VARCHAR(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL , `livestream` VARCHAR(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL , `live_key` VARCHAR(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL , `start_time` TIMESTAMP on update CURRENT_TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP , `room_id` VARCHAR(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL , `live_state` INT(10) NOT NULL , UNIQUE `id` (`id`)) ENGINE = InnoDB;
 
 
-CREATE TABLE `ifocus` . `rank_list` ( `id` VARCHAR(128) NOT NULL , `last_active_date` DATE NOT NULL , `time` VARCHAR(10) NOT NULL , `all_time` VARCHAR(10) NOT NULL , UNIQUE `id` ( `id` )) ENGINE = InnoDB;
+CREATE TABLE `ifocus`.`rank_list` ( `id` VARCHAR(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL , `last_active_date` DATE NOT NULL , `time` VARCHAR(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL , `all_time` VARCHAR(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL , UNIQUE `id` (`id`)) ENGINE = InnoDB;
 
 ```
 
