@@ -1,0 +1,15 @@
+#EXTM3U
+#EXT-X-VERSION:3
+#EXT-X-ALLOW-CACHE:YES
+#EXT-X-MEDIA-SEQUENCE:6
+#EXT-X-TARGETDURATION:17
+#EXTINF:16.646, no desc
+livestream-6.ts
+#EXTINF:16.652, no desc
+livestream-7.ts
+#EXTINF:16.656, no desc
+livestream-8.ts
+#EXTINF:16.661, no desc
+livestream-9.ts
+#EXTINF:0.622, no desc
+livestream-10.ts
