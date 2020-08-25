@@ -4679,3 +4679,231 @@
 [2020-08-24 11:32:27.298][trace][2805][113] -> HLS time=204979, stream dts=8975970(99733ms), sno=10, ts=livestream-9.ts, dur=16.40, dva=0p
 [2020-08-24 11:32:28.212][trace][2805][113] cleanup when unpublish
 [2020-08-24 11:32:28.212][warn][2805][113][2] client disconnect peer. ret=1004
+[2020-08-25 10:35:23.402][trace][8206][0] XCORE-SRS/2.0.272(ZhouGuowen)
+[2020-08-25 10:35:23.411][trace][8206][0] config parse complete
+[2020-08-25 10:35:23.411][trace][8206][0] write log to file ./objs/srs.log
+[2020-08-25 10:35:23.411][trace][8206][0] you can: tailf ./objs/srs.log
+[2020-08-25 10:35:23.411][trace][8206][0] @see: https://github.com/ossrs/srs/wiki/v1_CN_SrsLog
+[2020-08-25 10:35:23.411][trace][8206][0] srs checking config...
+[2020-08-25 10:35:23.411][trace][8206][0] detect intranet address: 127.0.0.1, ifname=lo
+[2020-08-25 10:35:23.411][trace][8206][0] retrieve local ipv4 ip=192.168.190.102, index=0
+[2020-08-25 10:35:23.411][trace][8206][0] detect intranet address: 192.168.190.102, ifname=ens33
+[2020-08-25 10:35:23.411][trace][8206][0] retrieve local ipv4 ip=192.168.122.1, index=1
+[2020-08-25 10:35:23.411][trace][8206][0] detect intranet address: 192.168.122.1, ifname=virbr0
+[2020-08-25 10:35:23.411][warn][8206][0][0] stats network use index=0, ip=192.168.190.102
+[2020-08-25 10:35:23.411][warn][8206][0][0] stats disk list: sda sdb xvda xvdb 
+[2020-08-25 10:35:23.411][trace][8206][0] write log to file ./objs/srs.log
+[2020-08-25 10:35:23.411][trace][8206][0] you can: tailf ./objs/srs.log
+[2020-08-25 10:35:23.411][trace][8206][0] @see: https://github.com/ossrs/srs/wiki/v1_CN_SrsLog
+[2020-08-25 10:35:23.411][trace][8206][0] SRS/2.0.272(ZhouGuowen), stable is SRS/2.0release
+[2020-08-25 10:35:23.411][trace][8206][0] license: The MIT License (MIT), Copyright (c) 2013-2015 SRS(ossrs)
+[2020-08-25 10:35:23.411][trace][8206][0] primary/master: SRS/2.0release
+[2020-08-25 10:35:23.411][trace][8206][0] authors: winlin,wenjie.zhao
+[2020-08-25 10:35:23.411][trace][8206][0] contributors: winlin<winlin@vip.126.com> wenjie.zhao<740936897@qq.com> xiangcheng.liu<liuxc0116@foxmail.com> naijia.liu<youngcow@youngcow.net> alcoholyi<alcoholyi@qq.com> byteman<wangchen2011@gmail.com> chad.wang<chad.wang.cn@gmail.com> suhetao<suhetao@gmail.com> Johnny<fengjihu@163.com> karthikeyan<keyanmca@gmail.com> StevenLiu<lq@chinaffmpeg.org> zhengfl<zhengfl_1989@126.com> tufang14<breadbean1449@gmail.com> allspace<allspace@gmail.com> niesongsong<nie950@gmail.com> rudeb0t<nimrod@themanxgroup.tw> CallMeNP<np.liamg@gmail.com> synote<synote@qq.com> lovecat<littlefawn@163.com> panda1986<542638787@qq.com> YueHonghui<hongf.yue@hotmail.com> JuntaoLiu<juntliu@gmail.com> 
+[2020-08-25 10:35:23.411][trace][8206][0] uname: Linux ryan 3.10.0-1127.el7.x86_64 #1 SMP Tue Mar 31 23:36:51 UTC 2020 x86_64 x86_64 x86_64 GNU/Linux
+[2020-08-25 10:35:23.411][trace][8206][0] build: 2020-08-02 15:09:41, little-endian
+[2020-08-25 10:35:23.411][trace][8206][0] configure: --x86-x64 
+[2020-08-25 10:35:23.411][trace][8206][0] features: --prefix=/usr/local/srs --with-hls --with-hds --with-dvr --without-nginx --with-ssl --without-ffmpeg --with-transcode --with-ingest --with-stat --with-http-callback --with-http-server --without-stream-caster --with-http-api --with-librtmp --without-research --with-utest --without-gperf --without-gmc --without-gmp --without-gcp --without-gprof --without-arm-ubuntu12 --without-mips-ubuntu12 --log-trace
+[2020-08-25 10:35:23.411][trace][8206][0] conf: ./conf/srs.conf, limit: 1000
+[2020-08-25 10:35:23.411][trace][8206][0] writev limits write 1024 iovs a time
+[2020-08-25 10:35:23.411][trace][8206][0] cpu is amd64, glibc 2.17
+[2020-08-25 10:35:23.411][trace][8206][0] cpu is x86_64, glibc 2.17
+[2020-08-25 10:35:23.411][trace][8206][0] check feature rtmp handshake: on
+[2020-08-25 10:35:23.411][trace][8206][0] check feature hls: on
+[2020-08-25 10:35:23.411][trace][8206][0] check feature hds: on
+[2020-08-25 10:35:23.411][trace][8206][0] check feature http callback: on
+[2020-08-25 10:35:23.411][trace][8206][0] check feature http api: on
+[2020-08-25 10:35:23.411][trace][8206][0] check feature http server: on
+[2020-08-25 10:35:23.411][trace][8206][0] check feature http parser: on
+[2020-08-25 10:35:23.411][trace][8206][0] check feature dvr: on
+[2020-08-25 10:35:23.411][trace][8206][0] check feature transcode: on
+[2020-08-25 10:35:23.411][trace][8206][0] check feature ingest: on
+[2020-08-25 10:35:23.411][trace][8206][0] check feature system stat: on
+[2020-08-25 10:35:23.411][warn][8206][0][0] check feature compile nginx: off
+[2020-08-25 10:35:23.411][warn][8206][0][0] check feature compile ffmpeg: off
+[2020-08-25 10:35:23.411][warn][8206][0][0] stream caster: off
+[2020-08-25 10:35:23.411][trace][8206][0] MR(merged-read): on, @see https://github.com/ossrs/srs/issues/241
+[2020-08-25 10:35:23.411][trace][8206][0] MR(merged-read) default 0 sleep 350
+[2020-08-25 10:35:23.411][trace][8206][0] MW(merged-write) default sleep 350
+[2020-08-25 10:35:23.411][trace][8206][0] read chunk stream cache cid [0, 16)
+[2020-08-25 10:35:23.411][trace][8206][0] default gop cache 1, play queue 30s
+[2020-08-25 10:35:23.411][trace][8206][0] complex send algorithm enabled.
+[2020-08-25 10:35:23.411][warn][8206][0][0] TCP_NODELAY enabled, may hurts performance.
+[2020-08-25 10:35:23.411][trace][8206][0] auto guess socket send buffer by merged write
+[2020-08-25 10:35:23.411][trace][8206][0] system default latency in ms: mw(0-350) + mr(0-350) + play-queue(0-30000)
+[2020-08-25 10:35:23.411][trace][8206][0] http flv live stream, vhost=__defaultVhost__, mount=[vhost]/[app]/[stream].flv
+[2020-08-25 10:35:23.411][trace][8206][0] http: root mount to ./objs/nginx/html
+[2020-08-25 10:35:23.411][trace][8206][0] start deamon mode...
+[2020-08-25 10:35:23.412][trace][8207][0] father process exit. ret=0
+[2020-08-25 10:35:23.412][trace][8206][0] grandpa process exit.
+[2020-08-25 10:35:23.412][trace][8208][0] son(deamon) process running.
+[2020-08-25 10:35:23.412][trace][8208][0] st_set_eventsys to epoll
+[2020-08-25 10:35:23.412][trace][8208][0] st_init success, use epoll
+[2020-08-25 10:35:23.412][trace][8208][100] server main cid=100, pid=8208, ppid=8205, asprocess=0
+[2020-08-25 10:35:23.413][trace][8208][100] write pid=8208 to ./objs/srs.pid success!
+[2020-08-25 10:35:23.425][trace][8208][100] RTMP listen at tcp://0.0.0.0:1935, fd=8
+[2020-08-25 10:35:23.436][trace][8208][100] HTTP-API listen at tcp://0.0.0.0:1985, fd=9
+[2020-08-25 10:35:23.449][trace][8208][100] HTTP-Server listen at tcp://0.0.0.0:8080, fd=10
+[2020-08-25 10:35:23.449][trace][8208][100] signal installed
+[2020-08-25 10:35:23.460][trace][8208][100] http: api mount /console to ./objs/nginx/html/console
+[2020-08-25 10:35:23.473][trace][8208][100] ingest thread cid=105, current_cid=100
+[2020-08-25 10:36:00.357][trace][8208][107] RTMP client ip=192.168.190.1
+[2020-08-25 10:36:00.357][trace][8208][107] srand initialized the random.
+[2020-08-25 10:36:00.358][trace][8208][107] simple handshake success.
+[2020-08-25 10:36:00.358][trace][8208][107] connect app, tcUrl=rtmp://192.168.190.102/live, pageUrl=, swfUrl=rtmp://192.168.190.102/live, schema=rtmp, vhost=192.168.190.102, port=1935, app=live, args=null
+[2020-08-25 10:36:00.401][trace][8208][107] client identified, type=fmle-publish, stream_name=livestream, duration=-1.00, param=
+[2020-08-25 10:36:00.401][trace][8208][107] connected stream, tcUrl=rtmp://192.168.190.102/live, pageUrl=, swfUrl=rtmp://192.168.190.102/live, schema=rtmp, vhost=__defaultVhost__, port=1935, app=live, stream=livestream, param=, args=null
+[2020-08-25 10:36:00.423][trace][8208][107] source url=/live/livestream, ip=192.168.190.1, cache=1, is_edge=0, source_id=-1[-1]
+[2020-08-25 10:36:00.465][trace][8208][107] hls: win=60.00, frag=10.00, prefix=, path=./objs/nginx/html, m3u8=[app]/[stream].m3u8, ts=[app]/[stream]-[seq].ts, aof=2.00, floor=0, clean=1, waitk=1, dispose=0
+[2020-08-25 10:36:00.475][trace][8208][107] http: mount flv stream for vhost=/live/livestream, mount=/live/livestream.flv
+[2020-08-25 10:36:00.485][trace][8208][107] start publish mr=0/350, p1stpt=20000, pnt=5000, tcp_nodelay=0, rtcid=111
+[2020-08-25 10:36:00.505][trace][8208][107] got metadata, width=1280, height=720
+[2020-08-25 10:36:00.791][trace][8208][107] protocol in.buffer=0, in.ack=0, out.ack=2500000, in.chunk=4096, out.chunk=60000
+[2020-08-25 10:36:00.791][trace][8208][107] 7B audio sh, codec(10, profile=LC, 2channels, 0kbps, 44100HZ), flv(16bits, 2channels, 44100HZ)
+[2020-08-25 10:36:00.791][trace][8208][107] 58B video sh,  codec(7, profile=High, level=3.1, 1280x720, 0kbps, 0fps, 0s)
+[2020-08-25 10:36:02.919][trace][8208][107] cleanup when unpublish
+[2020-08-25 10:36:02.920][warn][8208][107][2] client disconnect peer. ret=1004
+[2020-08-25 10:38:43.299][trace][8208][104] user terminate program, gracefully quit.
+[2020-08-25 10:38:43.519][trace][8208][100] cleanup for gracefully terminate.
+[2020-08-25 10:38:43.519][warn][8208][100][11] main cycle terminated, system quit normally.
+[2020-08-25 10:38:43.519][trace][8208][100] srs terminated
+[2020-08-25 10:38:43.776][trace][8555][0] XCORE-SRS/2.0.272(ZhouGuowen)
+[2020-08-25 10:38:43.776][trace][8555][0] config parse complete
+[2020-08-25 10:38:43.776][trace][8555][0] write log to file ./objs/srs.log
+[2020-08-25 10:38:43.776][trace][8555][0] you can: tailf ./objs/srs.log
+[2020-08-25 10:38:43.776][trace][8555][0] @see: https://github.com/ossrs/srs/wiki/v1_CN_SrsLog
+[2020-08-25 10:38:43.776][trace][8555][0] srs checking config...
+[2020-08-25 10:38:43.776][trace][8555][0] detect intranet address: 127.0.0.1, ifname=lo
+[2020-08-25 10:38:43.776][trace][8555][0] retrieve local ipv4 ip=192.168.190.102, index=0
+[2020-08-25 10:38:43.776][trace][8555][0] detect intranet address: 192.168.190.102, ifname=ens33
+[2020-08-25 10:38:43.776][trace][8555][0] retrieve local ipv4 ip=192.168.122.1, index=1
+[2020-08-25 10:38:43.776][trace][8555][0] detect intranet address: 192.168.122.1, ifname=virbr0
+[2020-08-25 10:38:43.776][warn][8555][0][0] stats network use index=0, ip=192.168.190.102
+[2020-08-25 10:38:43.776][warn][8555][0][0] stats disk list: sda sdb xvda xvdb 
+[2020-08-25 10:38:43.776][trace][8555][0] write log to file ./objs/srs.log
+[2020-08-25 10:38:43.776][trace][8555][0] you can: tailf ./objs/srs.log
+[2020-08-25 10:38:43.776][trace][8555][0] @see: https://github.com/ossrs/srs/wiki/v1_CN_SrsLog
+[2020-08-25 10:38:43.776][trace][8555][0] SRS/2.0.272(ZhouGuowen), stable is SRS/2.0release
+[2020-08-25 10:38:43.776][trace][8555][0] license: The MIT License (MIT), Copyright (c) 2013-2015 SRS(ossrs)
+[2020-08-25 10:38:43.776][trace][8555][0] primary/master: SRS/2.0release
+[2020-08-25 10:38:43.776][trace][8555][0] authors: winlin,wenjie.zhao
+[2020-08-25 10:38:43.776][trace][8555][0] contributors: winlin<winlin@vip.126.com> wenjie.zhao<740936897@qq.com> xiangcheng.liu<liuxc0116@foxmail.com> naijia.liu<youngcow@youngcow.net> alcoholyi<alcoholyi@qq.com> byteman<wangchen2011@gmail.com> chad.wang<chad.wang.cn@gmail.com> suhetao<suhetao@gmail.com> Johnny<fengjihu@163.com> karthikeyan<keyanmca@gmail.com> StevenLiu<lq@chinaffmpeg.org> zhengfl<zhengfl_1989@126.com> tufang14<breadbean1449@gmail.com> allspace<allspace@gmail.com> niesongsong<nie950@gmail.com> rudeb0t<nimrod@themanxgroup.tw> CallMeNP<np.liamg@gmail.com> synote<synote@qq.com> lovecat<littlefawn@163.com> panda1986<542638787@qq.com> YueHonghui<hongf.yue@hotmail.com> JuntaoLiu<juntliu@gmail.com> 
+[2020-08-25 10:38:43.776][trace][8555][0] uname: Linux ryan 3.10.0-1127.el7.x86_64 #1 SMP Tue Mar 31 23:36:51 UTC 2020 x86_64 x86_64 x86_64 GNU/Linux
+[2020-08-25 10:38:43.776][trace][8555][0] build: 2020-08-02 15:09:41, little-endian
+[2020-08-25 10:38:43.776][trace][8555][0] configure: --x86-x64 
+[2020-08-25 10:38:43.776][trace][8555][0] features: --prefix=/usr/local/srs --with-hls --with-hds --with-dvr --without-nginx --with-ssl --without-ffmpeg --with-transcode --with-ingest --with-stat --with-http-callback --with-http-server --without-stream-caster --with-http-api --with-librtmp --without-research --with-utest --without-gperf --without-gmc --without-gmp --without-gcp --without-gprof --without-arm-ubuntu12 --without-mips-ubuntu12 --log-trace
+[2020-08-25 10:38:43.776][trace][8555][0] conf: ./conf/srs.conf, limit: 1000
+[2020-08-25 10:38:43.776][trace][8555][0] writev limits write 1024 iovs a time
+[2020-08-25 10:38:43.776][trace][8555][0] cpu is amd64, glibc 2.17
+[2020-08-25 10:38:43.776][trace][8555][0] cpu is x86_64, glibc 2.17
+[2020-08-25 10:38:43.776][trace][8555][0] check feature rtmp handshake: on
+[2020-08-25 10:38:43.776][trace][8555][0] check feature hls: on
+[2020-08-25 10:38:43.776][trace][8555][0] check feature hds: on
+[2020-08-25 10:38:43.776][trace][8555][0] check feature http callback: on
+[2020-08-25 10:38:43.776][trace][8555][0] check feature http api: on
+[2020-08-25 10:38:43.776][trace][8555][0] check feature http server: on
+[2020-08-25 10:38:43.776][trace][8555][0] check feature http parser: on
+[2020-08-25 10:38:43.776][trace][8555][0] check feature dvr: on
+[2020-08-25 10:38:43.776][trace][8555][0] check feature transcode: on
+[2020-08-25 10:38:43.776][trace][8555][0] check feature ingest: on
+[2020-08-25 10:38:43.776][trace][8555][0] check feature system stat: on
+[2020-08-25 10:38:43.776][warn][8555][0][0] check feature compile nginx: off
+[2020-08-25 10:38:43.776][warn][8555][0][0] check feature compile ffmpeg: off
+[2020-08-25 10:38:43.776][warn][8555][0][0] stream caster: off
+[2020-08-25 10:38:43.776][trace][8555][0] MR(merged-read): on, @see https://github.com/ossrs/srs/issues/241
+[2020-08-25 10:38:43.776][trace][8555][0] MR(merged-read) default 0 sleep 350
+[2020-08-25 10:38:43.776][trace][8555][0] MW(merged-write) default sleep 350
+[2020-08-25 10:38:43.776][trace][8555][0] read chunk stream cache cid [0, 16)
+[2020-08-25 10:38:43.776][trace][8555][0] default gop cache 1, play queue 30s
+[2020-08-25 10:38:43.776][trace][8555][0] complex send algorithm enabled.
+[2020-08-25 10:38:43.776][warn][8555][0][0] TCP_NODELAY enabled, may hurts performance.
+[2020-08-25 10:38:43.776][trace][8555][0] auto guess socket send buffer by merged write
+[2020-08-25 10:38:43.776][trace][8555][0] system default latency in ms: mw(0-350) + mr(0-350) + play-queue(0-30000)
+[2020-08-25 10:38:43.776][trace][8555][0] http flv live stream, vhost=__defaultVhost__, mount=[vhost]/[app]/[stream].flv
+[2020-08-25 10:38:43.776][trace][8555][0] http: root mount to ./objs/nginx/html
+[2020-08-25 10:38:43.776][trace][8555][0] start deamon mode...
+[2020-08-25 10:38:43.776][trace][8556][0] father process exit. ret=0
+[2020-08-25 10:38:43.777][trace][8555][0] grandpa process exit.
+[2020-08-25 10:38:43.777][trace][8557][0] son(deamon) process running.
+[2020-08-25 10:38:43.777][trace][8557][0] st_set_eventsys to epoll
+[2020-08-25 10:38:43.777][trace][8557][0] st_init success, use epoll
+[2020-08-25 10:38:43.777][trace][8557][100] server main cid=100, pid=8557, ppid=8554, asprocess=0
+[2020-08-25 10:38:43.777][trace][8557][100] write pid=8557 to ./objs/srs.pid success!
+[2020-08-25 10:38:43.788][trace][8557][100] RTMP listen at tcp://0.0.0.0:1935, fd=8
+[2020-08-25 10:38:43.808][trace][8557][100] HTTP-API listen at tcp://0.0.0.0:1985, fd=9
+[2020-08-25 10:38:43.819][trace][8557][100] HTTP-Server listen at tcp://0.0.0.0:8080, fd=10
+[2020-08-25 10:38:43.819][trace][8557][100] signal installed
+[2020-08-25 10:38:43.831][trace][8557][100] http: api mount /console to ./objs/nginx/html/console
+[2020-08-25 10:38:43.843][trace][8557][100] ingest thread cid=105, current_cid=100
+[2020-08-25 10:39:42.018][trace][8557][104] user terminate program, gracefully quit.
+[2020-08-25 10:39:42.685][trace][8557][100] cleanup for gracefully terminate.
+[2020-08-25 10:39:42.685][warn][8557][100][11] main cycle terminated, system quit normally.
+[2020-08-25 10:39:42.685][trace][8557][100] srs terminated
+[2020-08-25 10:39:43.116][trace][8823][0] XCORE-SRS/2.0.272(ZhouGuowen)
+[2020-08-25 10:39:43.116][trace][8823][0] config parse complete
+[2020-08-25 10:39:43.116][trace][8823][0] write log to file ./objs/srs.log
+[2020-08-25 10:39:43.116][trace][8823][0] you can: tailf ./objs/srs.log
+[2020-08-25 10:39:43.116][trace][8823][0] @see: https://github.com/ossrs/srs/wiki/v1_CN_SrsLog
+[2020-08-25 10:39:43.116][trace][8823][0] srs checking config...
+[2020-08-25 10:39:43.117][trace][8823][0] detect intranet address: 127.0.0.1, ifname=lo
+[2020-08-25 10:39:43.117][trace][8823][0] retrieve local ipv4 ip=192.168.190.102, index=0
+[2020-08-25 10:39:43.117][trace][8823][0] detect intranet address: 192.168.190.102, ifname=ens33
+[2020-08-25 10:39:43.117][trace][8823][0] retrieve local ipv4 ip=192.168.122.1, index=1
+[2020-08-25 10:39:43.117][trace][8823][0] detect intranet address: 192.168.122.1, ifname=virbr0
+[2020-08-25 10:39:43.117][warn][8823][0][0] stats network use index=0, ip=192.168.190.102
+[2020-08-25 10:39:43.117][warn][8823][0][0] stats disk list: sda sdb xvda xvdb 
+[2020-08-25 10:39:43.117][trace][8823][0] write log to file ./objs/srs.log
+[2020-08-25 10:39:43.117][trace][8823][0] you can: tailf ./objs/srs.log
+[2020-08-25 10:39:43.117][trace][8823][0] @see: https://github.com/ossrs/srs/wiki/v1_CN_SrsLog
+[2020-08-25 10:39:43.117][trace][8823][0] SRS/2.0.272(ZhouGuowen), stable is SRS/2.0release
+[2020-08-25 10:39:43.117][trace][8823][0] license: The MIT License (MIT), Copyright (c) 2013-2015 SRS(ossrs)
+[2020-08-25 10:39:43.117][trace][8823][0] primary/master: SRS/2.0release
+[2020-08-25 10:39:43.117][trace][8823][0] authors: winlin,wenjie.zhao
+[2020-08-25 10:39:43.117][trace][8823][0] contributors: winlin<winlin@vip.126.com> wenjie.zhao<740936897@qq.com> xiangcheng.liu<liuxc0116@foxmail.com> naijia.liu<youngcow@youngcow.net> alcoholyi<alcoholyi@qq.com> byteman<wangchen2011@gmail.com> chad.wang<chad.wang.cn@gmail.com> suhetao<suhetao@gmail.com> Johnny<fengjihu@163.com> karthikeyan<keyanmca@gmail.com> StevenLiu<lq@chinaffmpeg.org> zhengfl<zhengfl_1989@126.com> tufang14<breadbean1449@gmail.com> allspace<allspace@gmail.com> niesongsong<nie950@gmail.com> rudeb0t<nimrod@themanxgroup.tw> CallMeNP<np.liamg@gmail.com> synote<synote@qq.com> lovecat<littlefawn@163.com> panda1986<542638787@qq.com> YueHonghui<hongf.yue@hotmail.com> JuntaoLiu<juntliu@gmail.com> 
+[2020-08-25 10:39:43.117][trace][8823][0] uname: Linux ryan 3.10.0-1127.el7.x86_64 #1 SMP Tue Mar 31 23:36:51 UTC 2020 x86_64 x86_64 x86_64 GNU/Linux
+[2020-08-25 10:39:43.117][trace][8823][0] build: 2020-08-02 15:09:41, little-endian
+[2020-08-25 10:39:43.117][trace][8823][0] configure: --x86-x64 
+[2020-08-25 10:39:43.117][trace][8823][0] features: --prefix=/usr/local/srs --with-hls --with-hds --with-dvr --without-nginx --with-ssl --without-ffmpeg --with-transcode --with-ingest --with-stat --with-http-callback --with-http-server --without-stream-caster --with-http-api --with-librtmp --without-research --with-utest --without-gperf --without-gmc --without-gmp --without-gcp --without-gprof --without-arm-ubuntu12 --without-mips-ubuntu12 --log-trace
+[2020-08-25 10:39:43.117][trace][8823][0] conf: ./conf/srs.conf, limit: 1000
+[2020-08-25 10:39:43.117][trace][8823][0] writev limits write 1024 iovs a time
+[2020-08-25 10:39:43.117][trace][8823][0] cpu is amd64, glibc 2.17
+[2020-08-25 10:39:43.117][trace][8823][0] cpu is x86_64, glibc 2.17
+[2020-08-25 10:39:43.117][trace][8823][0] check feature rtmp handshake: on
+[2020-08-25 10:39:43.117][trace][8823][0] check feature hls: on
+[2020-08-25 10:39:43.117][trace][8823][0] check feature hds: on
+[2020-08-25 10:39:43.117][trace][8823][0] check feature http callback: on
+[2020-08-25 10:39:43.117][trace][8823][0] check feature http api: on
+[2020-08-25 10:39:43.117][trace][8823][0] check feature http server: on
+[2020-08-25 10:39:43.117][trace][8823][0] check feature http parser: on
+[2020-08-25 10:39:43.117][trace][8823][0] check feature dvr: on
+[2020-08-25 10:39:43.117][trace][8823][0] check feature transcode: on
+[2020-08-25 10:39:43.117][trace][8823][0] check feature ingest: on
+[2020-08-25 10:39:43.117][trace][8823][0] check feature system stat: on
+[2020-08-25 10:39:43.117][warn][8823][0][0] check feature compile nginx: off
+[2020-08-25 10:39:43.117][warn][8823][0][0] check feature compile ffmpeg: off
+[2020-08-25 10:39:43.117][warn][8823][0][0] stream caster: off
+[2020-08-25 10:39:43.117][trace][8823][0] MR(merged-read): on, @see https://github.com/ossrs/srs/issues/241
+[2020-08-25 10:39:43.117][trace][8823][0] MR(merged-read) default 0 sleep 350
+[2020-08-25 10:39:43.117][trace][8823][0] MW(merged-write) default sleep 350
+[2020-08-25 10:39:43.117][trace][8823][0] read chunk stream cache cid [0, 16)
+[2020-08-25 10:39:43.117][trace][8823][0] default gop cache 1, play queue 30s
+[2020-08-25 10:39:43.117][trace][8823][0] complex send algorithm enabled.
+[2020-08-25 10:39:43.117][warn][8823][0][0] TCP_NODELAY enabled, may hurts performance.
+[2020-08-25 10:39:43.117][trace][8823][0] auto guess socket send buffer by merged write
+[2020-08-25 10:39:43.117][trace][8823][0] system default latency in ms: mw(0-350) + mr(0-350) + play-queue(0-30000)
+[2020-08-25 10:39:43.117][trace][8823][0] http flv live stream, vhost=__defaultVhost__, mount=[vhost]/[app]/[stream].flv
+[2020-08-25 10:39:43.117][trace][8823][0] http: root mount to ./objs/nginx/html
+[2020-08-25 10:39:43.117][trace][8823][0] start deamon mode...
+[2020-08-25 10:39:43.117][trace][8824][0] father process exit. ret=0
+[2020-08-25 10:39:43.117][trace][8823][0] grandpa process exit.
+[2020-08-25 10:39:43.117][trace][8825][0] son(deamon) process running.
+[2020-08-25 10:39:43.117][trace][8825][0] st_set_eventsys to epoll
+[2020-08-25 10:39:43.118][trace][8825][0] st_init success, use epoll
+[2020-08-25 10:39:43.118][trace][8825][100] server main cid=100, pid=8825, ppid=8822, asprocess=0
+[2020-08-25 10:39:43.118][trace][8825][100] write pid=8825 to ./objs/srs.pid success!
+[2020-08-25 10:39:43.131][trace][8825][100] RTMP listen at tcp://0.0.0.0:1935, fd=8
+[2020-08-25 10:39:43.151][trace][8825][100] HTTP-API listen at tcp://0.0.0.0:1985, fd=9
+[2020-08-25 10:39:43.162][trace][8825][100] HTTP-Server listen at tcp://0.0.0.0:8080, fd=10
+[2020-08-25 10:39:43.162][trace][8825][100] signal installed
+[2020-08-25 10:39:43.174][trace][8825][100] http: api mount /console to ./objs/nginx/html/console
+[2020-08-25 10:39:43.186][trace][8825][100] ingest thread cid=105, current_cid=100

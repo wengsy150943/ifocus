@@ -11,7 +11,7 @@ session_start();
 class user
 {
     // 目前测试的网址
-    private $url = "http://192.168.0.102/ifocus-back/";
+    private $url = "http://192.168.190.102/ifocus-back/";
     public $user_id;
     private $timestamp;
     private $result;
@@ -162,6 +162,13 @@ class user
             VALUES (\"{$id}\",\"{$room_id}\",\"{$state}\" ,\"{$livestream}\",\"{$key}\",\"{$time}\" );";
         $conn->query($sql);
         $conn->close();
+	print($state);
+	if($state != 0){
+	exec("cd ../ai-check/;./check_alive.sh; 2>&1",$rate);
+	print_r($rate);
+
+	//phpinfo();
+	}
         // 检查是否失败
         // check_alive($livestream);
         // 跳转回原页面
