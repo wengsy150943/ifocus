@@ -141,6 +141,7 @@ class user
     // 直播的生命周期
     function start_live()
     {
+$_SESSION['alive'] = TRUE;
         $room_id = $_POST['room_id'];
         $state = $_POST['state'];
         // 如果不是单纯锁屏，开启直播推流
@@ -164,18 +165,20 @@ class user
         $conn->close();
 
 	if($state != 0){
-	$rate = exec("cd ../AIDetect/;./check_alive.sh face live > ./a.txt &");
-	print_r($rate);
+	$rate = exec("cd ../AIDetect/;./check_alive.sh face $key > ./a.txt &");
 
 	//phpinfo();
 	}
         // 检查是否失败
         // check_alive($livestream);
         // 跳转回原页面
-        //Header("Location:studylist.php");
+        Header("Location:studylist.php");
     }
     function end_live()
     {
+	/*if(isset($_SESSION['alive']) == FALSE or $_SESSION['alive'] == FALSE){
+            return ;
+        }*/
         // 更新直播状态
         $_SESSION['alive'] = FALSE;
         date_default_timezone_set('PRC');
@@ -212,12 +215,20 @@ class user
         $conn->query($sql);
         echo $conn->error;
 
+
+	$sql = "SELECT * FROM livelist
+            WHERE id = \"{$this->user_id}\"";
+      $key = $conn->query($sql)->fetch_assoc()['room_id'];	
+	
         // 从直播名单中删除
         $sql = "DELETE FROM livelist
             WHERE id = \"{$this->user_id}\"";
         $result = $conn->query($sql);
         echo $conn->error;
         $conn->close();
+	exec("kill `ps -ef |grep /html/${key}/|head -n 1|awk '{print $2}'` 2>&1",$pid);
+
+	Header("Location:studylist.php");
     }
 }
 /* 辅助函数
