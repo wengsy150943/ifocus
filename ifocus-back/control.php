@@ -2,8 +2,8 @@
 
 include "study.php";
 
-
 $tar = $_REQUEST['target'];
+
 switch ($tar) {
     case "user":
         $user = new user();

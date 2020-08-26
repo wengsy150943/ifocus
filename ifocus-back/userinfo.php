@@ -19,7 +19,6 @@ function request($url, $post_data)
     );
 
     $context = stream_context_create($options);
-
     $result = file_get_contents($url, false, $context);
     return $result;
 }
@@ -67,6 +66,11 @@ function request($url, $post_data)
         $slogan = request($url."control.php",$data);
         $data = array('argc'=>'info','id'=>2,'res'=>'img','target'=>'user');
         $img = request($url."control.php",$data);
+	print_r($img);
+	  $data = array('argc'=>'info','id'=>2,'res'=>'user_money','target'=>'user');
+        $money = request($url."control.php",$data);
+        $data = array('argc'=>'info','id'=>2,'target'=>'user');
+        print_r(request($url."control.php",$data));
         ?>
         <p>
         昵称：
@@ -77,6 +81,11 @@ function request($url, $post_data)
         签名：
         <br>
         <?php echo $slogan;?>
+        </p>
+	<p>
+        余额：
+        <br>
+        <?php echo $money;?>
         </p>
         <p>
         头像：
@@ -95,5 +104,26 @@ function request($url, $post_data)
         $log = request($url."control.php",$data);
         echo $log;
         ?>
+    </div>
+<br>
+    <br>
+    <h2>修改用户虚拟币金额</h2>
+    <div>
+    在原表user中追加一列user_money，初始值设为100
+    <br>
+    ALTER TABLE `user` ADD `user_money` INT(255) NOT NULL DEFAULT '100' AFTER `id`;
+    <br>
+    'target'=>'user','argc'=>'edt','id'=>'2','money'=>
+    <br>
+    注意：输入的数值为加减的数值，如20/-10，而不是修改后的金额，会对负值进行判断
+    <form action="control.php" method="post"enctype="multipart/form-data">
+    <input type="hidden" value="edt" name="argc">
+    <input type="hidden" value="2" name="id">
+    <input type="hidden" name="target" value="user">
+    金额
+    <input type="text" name="money">
+    <input type="submit" value="提交">
+</form>
+        
     </div>
 </body>

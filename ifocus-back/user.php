@@ -114,13 +114,18 @@ class user
 
     // 修改函数，接受POST值name,slogan，以及文件pic，分别对应昵称，签名，头像
     function edt()
-    {
-
+    {        
+        if(isset($_POST["money"]))  $money = $this->result['user_money'] + $_POST['money'];
+        else $money = $this->result['user_money'];
         $username = $_POST["nickname"];
-        $slogan = $_POST['slogan'];
         $img = getImg($_FILES["img"]);
+        $slogan = $_POST["slogan"];
         $id = $this->user_id;
 
+        if($money < 0){
+            echo "error: nagetive money value";
+        }
+        else {
         // 更新用户信息
         date_default_timezone_set('PRC');
         $conn = new mysqli("localhost", "ifocus", "ifocus", "ifocus");
@@ -129,13 +134,29 @@ class user
             die("连接失败: " . $conn->connect_error);
             return;
         }
-        $sql = "UPDATE user SET nickname=\"{$username}\", 
-                  img=\"{$img}\",slogan=\"{$slogan}\"
+        if($username != NULL){
+            $sql = "UPDATE user SET nickname=\"{$username}\" 
                 WHERE id=\"{$id}\"";
-        $conn->query($sql);
+            $conn->query($sql);
+        }
+        if($slogan != NULL){
+            $sql = "UPDATE user SET slogan=\"{$slogan}\"
+                WHERE id=\"{$id}\"";
+            $conn->query($sql);
+        }
+        if($img != NULL){
+            $sql = "UPDATE user SET img=\"{$img}\"
+                WHERE id=\"{$id}\"";
+            $conn->query($sql);
+        }
+        if($money != NULL){
+            $sql = "UPDATE user SET user_money=\"{$money}\"
+                WHERE id=\"{$id}\"";
+            $conn->query($sql);
+        }
         $conn->close();
         Header("Location:userinfo.php");
-    }
+    }}
 
 
     // 直播的生命周期
