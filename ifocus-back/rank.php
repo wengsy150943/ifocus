@@ -36,7 +36,7 @@ function request($url, $post_data)
 <div>
     <?php
         $data = array('target'=>'today_rank');
-        $rank = request($url."control.php",$data);
+        //$rank = request($url."control.php",$data);
         echo $rank;
     ?>
 </div>
@@ -46,7 +46,7 @@ function request($url, $post_data)
 <div>
     <?php
         $data = array('target'=>'total_rank');
-        $rank = request($url."control.php",$data);
+        //$rank = request($url."control.php",$data);
         echo $rank;
         echo "<br>";
         print_r(json_decode(json_decode($rank,true)[0],true));

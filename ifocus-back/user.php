@@ -162,9 +162,9 @@ class user
             VALUES (\"{$id}\",\"{$room_id}\",\"{$state}\" ,\"{$livestream}\",\"{$key}\",\"{$time}\" );";
         $conn->query($sql);
         $conn->close();
-	print($state);
+
 	if($state != 0){
-	exec("cd ../ai-check/;./check_alive.sh; 2>&1",$rate);
+	$rate = exec("cd ../AIDetect/;./check_alive.sh face live > ./a.txt &");
 	print_r($rate);
 
 	//phpinfo();
